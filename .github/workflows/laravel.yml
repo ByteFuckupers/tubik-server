@@ -24,6 +24,8 @@ jobs:
       run: pwd
     - name: display ls
       run: ls -la
+    - name: Run Docker Sail
+      run: ./vendor/bin/sail up
     - name: Install Dependencies
       run: composer install
 
