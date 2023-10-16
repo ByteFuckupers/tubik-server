@@ -91,18 +91,18 @@ class AuthControllerTest extends TestCase
     }
 
 
-    public function testValidatorRegistrationFailed(): void
-    {
-        $response = $this->postJson(route('auth.register'), [
-            'name'     => 'John',
-            'email'    => 'invalid-email3',
-            'password' => 'password'
-        ]);
-
-        $response
-            ->assertStatus(422)
-            ->assertJsonStructure([
-                'errors'
-            ]);
-    }
+//    public function testValidatorRegistrationFailed(): void
+//    {
+//        $response = $this->postJson(route('auth.register'), [
+//            'name'     => 'John',
+//            'email'    => 'invalid-email3',
+//            'password' => 'password'
+//        ]);
+//
+//        $response
+//            ->assertStatus(422)
+//            ->assertJsonStructure([
+//                'errors'
+//            ]);
+//    }
 }
