@@ -2,11 +2,9 @@ name: Laravel
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "pre-prod"]
   workflow_dispatch:
-    branches: [ "main" ]
 
 jobs:
   laravel-tests:
