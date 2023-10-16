@@ -55,8 +55,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-
-    //test push to main
+    //test push to main 2
 
 
 
