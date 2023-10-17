@@ -2,11 +2,9 @@ name: Laravel
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-    branches: [ "main" ]
 
 jobs:
   laravel-tests:
@@ -27,9 +25,14 @@ jobs:
       run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
     - name: Run Docker Sail
       run: ./vendor/bin/sail up -d
-    - name: Generate key
-      run: php artisan key:generate
+    - name: Generate keys
+      run: |
+        php artisan key:generate
+        php artisan config:clear
+        php artisan jwt:secret
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
+    - name: Migrate Database
+      run: docker compose exec laravel.test php artisan migrate:fresh --seed --force
     - name: Run Tests
-      run: php artisan test
+      run: docker compose exec laravel.test php artisan test
