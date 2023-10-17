@@ -31,7 +31,7 @@ class AuthController extends Controller
         $credentials = $request->validated();
 
         return User::query()->create($credentials)// automatic hashing while user creation
-            ? $this->login(LoginRequest::create('login', 'POST', $credentials), new RespondWithToken())
+            ? $this->login(LoginRequest::createFrom($request), new RespondWithToken())
             : response()->json(['error' => 'fall to create user'], 409);
     }
 
