@@ -3,7 +3,6 @@
 namespace Http\Controllers\V1\Auth;
 
 use App\Http\Controllers\V1\Auth\AuthController;
-use App\Http\Resources\V1\Auth\MeResource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -141,14 +140,15 @@ class AuthControllerTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonStructure([
-                'data' => [
-                    'id',
-                    'name',
-                    'email',
-                    'email_verified_at',
-                    'created_at',
-                    'updated_at'
-                ]
+                'id',
+                'name',
+                'email',
+                'email_verified_at',
+                'created_at',
+                'updated_at',
+                'phone_number',
+                'image',
+                'placeholder'
             ]);
     }
 }

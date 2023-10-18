@@ -22,6 +22,9 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => 'password', // password auto hashed
+            'phone_number' => fake()->phoneNumber(),
+            'image' => fake()->imageUrl(),
+            'placeholder' => fake()->text(40),
         ];
     }
 
