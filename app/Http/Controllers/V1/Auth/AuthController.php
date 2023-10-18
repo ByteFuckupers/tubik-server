@@ -6,7 +6,6 @@ use App\Action\V1\Auth\RespondWithToken;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
-use App\Http\Resources\V1\Auth\MeResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
@@ -43,9 +42,9 @@ class AuthController extends Controller
     }
 
 
-    public function me(): MeResource
+    public function me(): JsonResponse
     {
-        return new MeResource(auth()->user());
+        return response()->json(auth()->user());
     }
 
 
