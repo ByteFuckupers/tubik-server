@@ -8241,7 +8241,6 @@
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
                 "reference": "34a41e998c2183e22995f158c581e7b5e755ab9e"
-            
             },
             "dist": {
                 "type": "zip",
@@ -8295,9 +8294,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-<<<<<<< HEAD
-    "plugin-api-version": "2.6.0"
-=======
     "plugin-api-version": "2.3.0"
->>>>>>> 82aa0b7 (fix composer.lock)
 }
