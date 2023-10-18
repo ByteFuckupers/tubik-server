@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,9 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'phone_number',
+        'image',
+        'placeholder'
     ];
 
     /**
@@ -60,4 +64,17 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+
+    public function setImageAttribute(string $image): void
+    {
+        $this->attributes['image'] = "nazar.jpg";
+    }
+
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Products::class, 'user_id');
+    }
+
 }
