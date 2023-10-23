@@ -134,7 +134,7 @@ class AuthControllerTest extends TestCase
 
         $response = $this
             ->withHeader('Authorization', "Bearer $token")
-            ->postJson(route('auth.me'));
+            ->get(route('auth.me'));
 
 
         $response
