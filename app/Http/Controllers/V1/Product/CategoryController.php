@@ -3,27 +3,32 @@
 namespace App\Http\Controllers\V1\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Product\Category\CategoryProductRequest;
 use App\Http\Resources\Product\CategoryResource;
 use App\Models\Categories;
+use Dotenv\Exception\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
     public function getCategories(): AnonymousResourceCollection
     {
-        return CategoryResource::collection(Categories::getCategories());
+        return CategoryResource::collection(Categories::getCategories()->get());
     }
 
 
-    public function categoryProduct(Categories $category): AnonymousResourceCollection
+    public function categoryProduct(Request $request, string $category)
     {
-        return CategoryResource::collection($category->subcategories);
+        return Categories::getCategoryOrFail($category);
     }
 
 
-    public function subcategoryProduct(Categories $subcategory): AnonymousResourceCollection
+    public function subcategoryProduct(Request $request, string $category, string $subcategory)
     {
-        return CategoryResource::collection($subcategory->products);
+        return Categories::getCategoryOrFail($category)
+            ->getSubcategoryOrFail($subcategory);
     }
 }
