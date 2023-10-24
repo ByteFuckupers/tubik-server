@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,6 +21,7 @@ class Categories extends Model
         'active',
     ];
 
+
     public function products(): HasMany
     {
         return $this->hasMany(ProductCategories::class, 'category_id');
@@ -27,6 +29,21 @@ class Categories extends Model
 
     public function category(): HasOne
     {
-        return $this->hasOne(self::class, 'parent_id');
+        return $this->hasOne(self::class, 'category_id');
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(self::class, 'category_id');
+    }
+
+
+
+    public static function getCategories(): Collection|array
+    {
+        return self::query()
+            ->where('category_id', null,)
+            ->with('categories', fn ($query) => $query->where('active', true))
+            ->get();
     }
 }
