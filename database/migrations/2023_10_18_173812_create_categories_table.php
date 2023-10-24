@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('slug'); // This is thу text for the URL
             $table->boolean('active')->default(true);
-            $table->foreignIdFor(Categories::class, 'category_id')->constrained()->nullOnDelete();
+            $table->foreignIdFor(Categories::class, 'category_id')->nullable()->constrained()->nullOnDelete();
             $table->text('description');
             $table->string('image');
-            $table->string('icon');
             $table->timestamps();
         });
 
