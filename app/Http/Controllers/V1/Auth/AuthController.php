@@ -8,6 +8,7 @@ use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Http\Requests\V1\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use App\Jobs\ImportDefaultAvatarJob;
 
 class AuthController extends Controller
 {
@@ -117,9 +118,13 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        return User::query()->create($credentials)// automatic hashing while user creation
-            ? $respondWithToken(auth()->attempt($request->validated()))
-            : response()->json(['error' => 'fall to create user'], 409);
+        if($user = User::query()->create($credentials))
+        {
+            ImportDefaultAvatarJob::dispatch($user);
+            return $respondWithToken(auth()->attempt($request->validated()));
+        }
+        return response()->json(['error' => 'fall to create user'], 409);
+        
     }
 
     /**
