@@ -19,10 +19,15 @@ Route::middleware('api')->group(function () {
         Route::get('me', [\App\Http\Controllers\V1\Auth\AuthController::class, 'me'])->name('auth.me');
     });
 
-
     Route::prefix('category')->group(function () {
-        Route::get('', [\App\Http\Controllers\V1\Product\CategoryController::class, 'index'])->name('category.index');
+        Route::get('', [\App\Http\Controllers\V1\Product\CategoryController::class, 'getCategories'])->name('category.getCategories');
+        Route::get('{category}', [\App\Http\Controllers\V1\Product\CategoryController::class, 'categoryProduct'])->name('category.getCategories');
+        Route::get('{category}/{subcategory}', [\App\Http\Controllers\V1\Product\CategoryController::class, 'subcategoryProduct'])->name('category.getCategories');
+
     });
+
+
+
 
     Route::prefix('product')->group(function () {
         Route::get('', [\App\Http\Controllers\V1\Product\ProductController::class, 'index'])->name('product.index');

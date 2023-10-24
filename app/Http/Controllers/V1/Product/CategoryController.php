@@ -10,8 +10,20 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function getCategories(): AnonymousResourceCollection
     {
         return CategoryResource::collection(Categories::getCategories());
+    }
+
+
+    public function categoryProduct(Categories $category): AnonymousResourceCollection
+    {
+        return CategoryResource::collection($category->subcategories);
+    }
+
+
+    public function subcategoryProduct(Categories $subcategory): AnonymousResourceCollection
+    {
+        return CategoryResource::collection($subcategory->products);
     }
 }
